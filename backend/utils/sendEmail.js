@@ -6,28 +6,27 @@ const sendEmail = async (options) => {
   // If no SMTP settings are configured in .env, use a fake Ethereal account
   if (!process.env.SMTP_HOST) {
     console.log('No SMTP_HOST found in .env. Generating a test Ethereal account...');
+
     const testAccount = await nodemailer.createTestAccount();
+
     transporter = nodemailer.createTransport({
       host: 'smtp.ethereal.email',
       port: 587,
-      secure: false, // true for 465, false for other ports
+      secure: false,
       auth: {
-        user: testAccount.user, // generated ethereal user
-        pass: testAccount.pass, // generated ethereal password
+        user: testAccount.user,
+        pass: testAccount.pass,
       },
     });
   } else {
-    // Create reusable transporter object using the configured SMTP transport
+    // Gmail SMTP
     transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: Number(process.env.SMTP_PORT),
-  secure: false,
-  requireTLS: true,
-  auth: {
-    user: process.env.SMTP_EMAIL,
-    pass: process.env.SMTP_PASSWORD,
-  },
-});
+      service: 'gmail',
+      auth: {
+        user: process.env.SMTP_EMAIL,
+        pass: process.env.SMTP_PASSWORD,
+      },
+    });
   }
 
   // Setup email data
@@ -44,7 +43,7 @@ const sendEmail = async (options) => {
 
   console.log('Message sent: %s', info.messageId);
 
-  // If we used a fake account, print the URL where the user can view the email
+  // If using Ethereal, print preview URL
   if (!process.env.SMTP_HOST) {
     console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
   }
