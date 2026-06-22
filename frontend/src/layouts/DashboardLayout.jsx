@@ -25,6 +25,7 @@ const DashboardLayout = () => {
       { name: 'Doctors', path: '/admin/doctors', icon: Stethoscope },
       { name: 'Patients', path: '/admin/patients', icon: Users },
       { name: 'Appointments', path: '/admin/appointments', icon: CalendarDays },
+      { name: 'Staff Management', path: '/admin/staff', icon: Users },
       { name: 'Billing', path: '/admin/bills', icon: Receipt }
     );
   }

@@ -194,7 +194,7 @@ const Doctors = () => {
                       <p className="text-xs text-slate-500">{doc.email}</p>
                     </td>
                     <td className="py-3 px-4 text-sm text-slate-900 font-medium">
-                      ${doc.consultationFee}
+                      ₹{doc.consultationFee}
                     </td>
                     <td className="py-3 px-4">
                       <div className="flex items-center justify-end gap-2">
@@ -289,7 +289,7 @@ const Doctors = () => {
                   <input type="email" name="email" value={formData.email} onChange={handleInputChange} className="w-full p-2 border border-slate-200 rounded-md" required />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-sm font-medium text-slate-700">Consultation Fee ($)</label>
+                  <label className="text-sm font-medium text-slate-700">Consultation Fee (₹)</label>
                   <input type="number" name="consultationFee" value={formData.consultationFee} onChange={handleInputChange} className="w-full p-2 border border-slate-200 rounded-md" required />
                 </div>
               </div>

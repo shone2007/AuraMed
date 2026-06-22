@@ -18,6 +18,8 @@ import Doctors from './pages/Doctors';
 import Patients from './pages/Patients';
 import Appointments from './pages/Appointments';
 import Bills from './pages/Bills';
+import StaffManagement from './pages/StaffManagement';
+import ResetPassword from './pages/ResetPassword';
 
 const ProtectedRoute = ({ children, allowedRoles }) => {
   const { user, loading } = useContext(AuthContext);
@@ -45,6 +47,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/reset-password/:token" element={<ResetPassword />} />
           </Route>
 
           {/* Protected Dashboard Routes */}
@@ -60,6 +63,7 @@ function App() {
             <Route path="/admin/doctors" element={<ProtectedRoute allowedRoles={['Admin']}><Doctors /></ProtectedRoute>} />
             <Route path="/admin/patients" element={<ProtectedRoute allowedRoles={['Admin']}><Patients /></ProtectedRoute>} />
             <Route path="/admin/appointments" element={<ProtectedRoute allowedRoles={['Admin']}><Appointments /></ProtectedRoute>} />
+            <Route path="/admin/staff" element={<ProtectedRoute allowedRoles={['Admin']}><StaffManagement /></ProtectedRoute>} />
             <Route path="/admin/bills" element={<ProtectedRoute allowedRoles={['Admin']}><Bills /></ProtectedRoute>} />
             <Route 
               path="/doctor/dashboard" 

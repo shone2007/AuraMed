@@ -211,7 +211,7 @@ const Bills = () => {
                       <p className="text-xs text-slate-500">Dr. {bill.doctor?.name || 'Unknown'}</p>
                     </td>
                     <td className="py-3 px-4">
-                      <p className="text-lg font-bold text-slate-900">${bill.totalAmount}</p>
+                      <p className="text-lg font-bold text-slate-900">₹{bill.totalAmount}</p>
                     </td>
                     <td className="py-3 px-4">
                       <span className={`px-2 py-1 text-xs font-semibold rounded-full ${bill.paymentStatus === 'Paid' ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'}`}>
@@ -301,19 +301,19 @@ const Bills = () => {
                   </select>
                 </div>
                 <div className="space-y-1">
-                  <label className="text-sm font-medium text-slate-700">Consultation Fee ($)</label>
+                  <label className="text-sm font-medium text-slate-700">Consultation Fee (₹)</label>
                   <input type="number" name="consultationFee" value={formData.consultationFee} onChange={handleInputChange} className="w-full p-2 border border-slate-200 rounded-md" required min="0" />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-sm font-medium text-slate-700">Medicine Fee ($)</label>
+                  <label className="text-sm font-medium text-slate-700">Medicine Fee (₹)</label>
                   <input type="number" name="medicineFee" value={formData.medicineFee} onChange={handleInputChange} className="w-full p-2 border border-slate-200 rounded-md" required min="0" />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-sm font-medium text-slate-700">Laboratory Fee ($)</label>
+                  <label className="text-sm font-medium text-slate-700">Laboratory Fee (₹)</label>
                   <input type="number" name="laboratoryFee" value={formData.laboratoryFee} onChange={handleInputChange} className="w-full p-2 border border-slate-200 rounded-md" required min="0" />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-sm font-medium text-slate-700">Total ($)</label>
+                  <label className="text-sm font-medium text-slate-700">Total (₹)</label>
                   <div className="w-full p-2 bg-slate-50 border border-slate-200 rounded-md font-bold text-slate-900">
                     {Number(formData.consultationFee) + Number(formData.medicineFee) + Number(formData.laboratoryFee)}
                   </div>

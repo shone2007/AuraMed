@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://auramed-backend-gvv9.onrender.com/api',
+  baseURL: 'https://auramed-backend-gvv9.onrender.com/api', // Changed from render URL to local for testing
 });
 
 // Add a request interceptor to attach the JWT token

@@ -74,7 +74,7 @@ const AdminDashboard = () => {
       + `Total Doctors,${stats.doctors}\n`
       + `Total Patients,${stats.patients}\n`
       + `Total Appointments,${stats.appointments}\n`
-      + `Total Revenue,$${stats.revenue}\n`;
+      + `Total Revenue,₹${stats.revenue}\n`;
     
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
@@ -110,7 +110,7 @@ const AdminDashboard = () => {
         <StatCard title="Total Doctors" value={stats.doctors} icon={Stethoscope} trend={5} />
         <StatCard title="Total Patients" value={stats.patients} icon={Users} trend={12} />
         <StatCard title="Appointments" value={stats.appointments} icon={CalendarDays} trend={-2} />
-        <StatCard title="Total Revenue" value={`$${stats.revenue}`} icon={Receipt} trend={8} />
+        <StatCard title="Total Revenue" value={`₹${stats.revenue}`} icon={Receipt} trend={8} />
       </div>
 
       {/* Charts & Tables */}
@@ -123,7 +123,7 @@ const AdminDashboard = () => {
               <BarChart data={revenueData}>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" />
                 <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#64748B'}} />
-                <YAxis axisLine={false} tickLine={false} tick={{fill: '#64748B'}} tickFormatter={(value) => `$${value}`} />
+                <YAxis axisLine={false} tickLine={false} tick={{fill: '#64748B'}} tickFormatter={(value) => `₹${value}`} />
                 <Tooltip 
                   cursor={{fill: '#F1F5F9'}} 
                   contentStyle={{borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)'}} 
