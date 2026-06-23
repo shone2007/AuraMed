@@ -23,9 +23,11 @@ const sendEmail = async (options) => {
     html: options.html,
   };
 
+  console.log("Attempting SMTP connection...");
   const info = await transporter.sendMail(message);
 
   console.log('Message sent:', info.messageId);
+  console.log("Email sent successfully");
 };
 
 module.exports = sendEmail;
