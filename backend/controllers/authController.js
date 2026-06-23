@@ -96,48 +96,66 @@ const getMe = async (req, res, next) => {
 // @route   POST /api/auth/forgotpassword
 // @access  Public
 const forgotPassword = async (req, res, next) => {
-  try {
-    const user = await User.findOne({ email: req.body.email });
+try {
+const user = await User.findOne({ email: req.body.email });
 
-    if (!user) {
-      res.status(404);
-      throw new Error('There is no user with that email');
-    }
+if (!user) {
+  res.status(404);
+  throw new Error('There is no user with that email');
+}
 
-    // Get reset token
-    const resetToken = user.getResetPasswordToken();
+// Get reset token
+const resetToken = user.getResetPasswordToken();
 
-    await user.save({ validateBeforeSave: false });
+await user.save({ validateBeforeSave: false });
 
-    // Create reset url
-    const resetUrl = `http://localhost:5173/reset-password/${resetToken}`;
+// Create reset URL
+const resetUrl = `https://aura-med-zeta.vercel.app/reset-password/${resetToken}`;
 
-    const message = `You are receiving this email because you (or someone else) has requested the reset of a password. Please make a PUT request to: \n\n ${resetUrl}`;
+const message = `You are receiving this email because you (or someone else) has requested the reset of a password.\n\n${resetUrl}`;
 
-    try {
-      await sendEmail({
-        email: user.email,
-        subject: 'Password reset token',
-        message,
-        html: `<p>You requested a password reset. Please click the link below to set a new password:</p>
-               <a href="${resetUrl}" target="_blank">Reset Password</a>`
-      });
+try {
+  console.log("User found:", user.email);
+  console.log("Generated token:", resetToken);
+  console.log("Reset URL:", resetUrl);
+  console.log("About to send email");
 
-      res.status(200).json({ success: true, data: 'Email sent' });
-    } catch (error) {
-      console.log(error);
-      user.resetPasswordToken = undefined;
-      user.resetPasswordExpire = undefined;
+await sendEmail({
+  email: user.email,
+  subject: 'Password reset token',
+  message,
+  html: `
+    <p>You requested a password reset.</p>
+    <p>Click the link below to set a new password:</p>
+    <a href="${resetUrl}" target="_blank">Reset Password</a>
+  `
+});
 
-      await user.save({ validateBeforeSave: false });
+  console.log("Email sent successfully");
 
-      res.status(500);
-      throw new Error('Email could not be sent');
-    }
-  } catch (error) {
-    next(error);
-  }
+  res.status(200).json({
+    success: true,
+    data: 'Email sent'
+  });
+
+} catch (error) {
+  console.log("Email Error:", error);
+
+  user.resetPasswordToken = undefined;
+  user.resetPasswordExpire = undefined;
+
+  await user.save({ validateBeforeSave: false });
+
+  res.status(500);
+  throw new Error('Email could not be sent');
+}
+
+
+} catch (error) {
+next(error);
+}
 };
+
 
 // @desc    Reset Password
 // @route   PUT /api/auth/resetpassword/:resettoken
